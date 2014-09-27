@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>TextFlow</title>
+
+	<script type="text/javascript" src="data/Jcdl/categories.js"></script>
+	<script type="text/javascript" src="scripts/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.9.1.custom.min.js"></script>
+
+	<script type="text/javascript" src="scripts/json2.js"></script>
+	<script type="text/javascript" src="scripts/jqcloud-0.2.9.min.js"></script>
+	<script type="text/javascript" src="scripts/d3/d3.v3.js"></script>
+	<script type="text/javascript" src="scripts/d3/canvas.curve.js"></script>
+	<script type="text/javascript" src="scripts/d3/d3.layout.textflow.js"></script>
+	<script type="text/javascript" src="scripts/jquery.tipsy.js"></script>
+	<script type="text/javascript" src="scripts/d3/chart.js"></script>
+	<script type="text/javascript" src="scripts/d3/categories.js"></script>
+	<script type="text/javascript" src="scripts/d3/topicflow.js"></script>
+	<script type="text/javascript" src="scripts/external.js"></script>
+
+	<script type="text/javascript" src="scripts/controller.js"></script>
+	<script type="text/javascript" src="scripts/Article.js"></script>
+	<script type="text/javascript" src="scripts/Topic.js"></script>
+	<script type="text/javascript" src="scripts/Period.js"></script>
+	
+	<!--  data here"></script-->
+	<script src="data/Jcdl/cat_data.json"></script>
+	<script src="data/Jcdl/top2cat.json"></script>
+	<script src="data/Jcdl/articles.json"></script>
+	<script src="data/Jcdl/topics.json"></script>
+	<!-- script src ="data/ModernFamily/TopicSimilarity.json"></script-->
+	
+	<script src="data/ModernFamily/Tweet.json"></script>
+	<script src="data/ModernFamily/Bins.json"></script>
+	<script src ="data/ModernFamily/TopicSimilarity.json"></script>
+
+	<script src="data/Debate/Tweet.json"></script>
+	<script src="data/Debate/Bins.json"></script>
+	<script src ="data/Debate/TopicSimilarity.json"></script>
+
+	<script src="data/CHI/Tweet.json"></script>
+	<script src="data/CHI/Bins.json"></script>
+	<script src ="data/CHI/TopicSimilarity.json"></script>
+
+	<script src="data/Sandy/Tweet.json"></script>
+	<script src="data/Sandy/Bins.json"></script>
+	<script src ="data/Sandy/TopicSimilarity.json"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/960grid.css" />
+	<link type='text/css' rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
+	<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600' />
+	<link type='text/css' rel='stylesheet' href='http://fonts.googleapis.com/css?family=Josefin+Slab:100,400' />
+	<link type="text/css" rel="stylesheet" href="css/TopicFlow.css" />
+	<link type="text/css" rel="stylesheet" href="css/jqcloud.css" />
+	<link type="text/css" rel="stylesheet" href="css/jquery.tipsy.css" />
+	<link type="text/css" rel="stylesheet" href="css/chart.css" />
+</head>
+<script>
+//function func()
+//{
+//alert("Hello World!");
+//}
+</script>
+<body>
+<!-- LOADING DIV -->
+<div id="loader" class="loader" style="display:none">
+	<img src="images/ajax-loader.gif"></img>
+</div>
+
+<!-- GREYED BACKGROUND -->
+<div id="dataset-popup" class="dataset-popup"></div>
+
+<!-- DATASET SELECTOR DIV -->
+<div class="absolute-div">
+	<div id="selectbox_datasets">	
+		<div id="title" class="panel_name">Select a dataset... <span id="close_select" class="title_link">Close</span></div>
+		<ul id="popup_data_selector">
+			<li id="jcdl"><a href="#">JCDL Articles</a></li>
+			<!--li id="ModernFamily"><a href="#">Modern Family</a></li-->
+			<!--li id="debate"><a href="#">Debate and Obama</a></li-->
+			<!--li id="chi"><a href="#">CHI Conference</a></li-->
+			<!--li id="sandy"><a href="#">Sandy and NJ</a></li-->
+			
+			<!--<li id="load_new"><a href="#">Load new...</a></li>-->
+		</ul>
+	</div>
+</div>
+
+<!-- ABOUT DIV -->
+<div class="absolute-div">
+	<div id="about-popup" style="display:none;">	
+		<div id="title" class="panel_name">About TextFlow <span id="close_about" class="title_link">Close</span></div>
+		<div id="about-div" class="panel_contents">
+			TextFlow is a tool that visualizesthe results of automatic topic detection and topic alignmentbetween sets of articles over time. 
+			<br />
+			<br />
+			This tool was a team project for the Fall 2012 semester, class CMSC 734 Information Visualization, taught by Prof. Ben Shneiderman for the Department of Computer Science at the University of Maryland
+			<br>
+			Team members:
+			<ul>
+				<li> yali Bian</li>
+			</ul>
+			More information:
+			<ul>
+				<li> <a href="http://www.heypano.com/topicflow/topicflowv2.mp4" target="_blank">Video Tutorial</a> (mp4)</li>
+				<li> <a href="https://wiki.cs.umd.edu/cmsc734_f12/images/0/05/TopicFlowFinalReport2.pdf" target="_blank">Paper</a> (PDF)</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+
+<!-- TOOLTIP DIV -->
+<div id="tt" style="display:none;">
+	<div id="tttop"> </div>
+	<div id="ttcont"> </div>
+	<div id="ttbot"> </div>
+</div>
+
+<!-- TOPIC SIMILARITY DIV -->
+<div id="similarity_holder" style="display:none;">
+	<div id="topicSimilarity">
+		<div class="similarity_panel"><div class="title" id="t1_title"></div><div id="t1"></div></div>
+		<div class="similarity_panel"><div class="title" id="t2_title"></div><div id="t2"></div></div>
+	</div>
+</div>
+
+<!-- MAIN PAGE DIV -->
+<div class="container_12">
+	<div class="header">
+		<span class="grid_8 alpha" id="product_title"><span class="dark">Text</span><span class="light">Flow</span><span id="dataset_name"></span></span>
+		<span class="grid_4 omega" id="data_selector_panel">
+
+			<button id="data_selector">Change Dataset</button>
+			<button id="about">About TextFlow</button>
+		</span>
+	</div>
+	<div class="clear"></div>
+	<div class="main_panel">
+		<div class="grid_3 alpha viz_panel" id="topic_list_panel">
+			<div id="filter_holder">
+				<div class="panel_name">
+					<span class="panel_title">CONTROLLER</span>
+					<span id="reset_filters" class="title_link">Reset Filters</span>
+				</div>
+
+				<div class="panel_contents">
+					<label for="topic_size">Topic Size: </label> <span id="topic_size"></span>
+					<div id="topic_size_slider"></div>
+					<label for="keyword_weight">Keyword Weight: </label> <span id="keyword_weight"></span>
+					<div id="keyword_weight_slider"></div>
+					
+					<label for="period_section">Period section: </label> <span id="period_section"></span>
+					<div id="period_section_slider"></div>
+					<label for="topic_mode">Mode: </label> <span id="topic_mode"></span>
+					<fieldset id="topic_type_RadioButton">
+						<form>
+							<span class="normal mode_option"><input type="radio" name="mode" class="topic_mode" value="normal" checked="yes"/>Normal</span>
+							<span class="order mode_option"><input type="radio" name="mode" class="topic_mode" value="order"/>Order</span>
+							<span class="room mode_option"><input type="radio" name="mode" class="topic_mode" value="room"/>Room</span><br />
+							<span class="merge mode_option"><input type="radio" name="mode" class="topic_mode" value="merge"/>Merge</span>
+							<span class="fisheye mode_option"><input type="radio" name="mode" class="topic_mode" value="fisheye"/>Fisheye</span>
+							<span class="category mode_option"><input type="radio" name="mode" class="topic_mode" value="category"/>Category</span>
+						</form>
+					
+						<button type="button" id="tag_present" >Present</button>
+						<button type="button" id="reset" >Reset</button>
+					
+					</fieldset>	
+				</div>
+			</div >
+
+			<div id="topic_holder">	
+				<div class="panel_name">
+					<span class="panel_title" id="topics_title">Topics</span>
+					<span class="title_link" id="view_all">Deselect Topic</span>
+				</div>
+				<div class="panel_contents">
+					<center><input type="text" title="Search for word..." id="topic_searchbox" /></center>
+					<ul id="topic_list"></ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="grid_6 viz_panel" id="flow_viz_panel">
+			<div class="panel_name"><span class="panel_title">TAG FLOW</span></div>
+			<div class="panel_contents">
+				<div id="flow_viz"></div>
+				<!--div id="graphHolder"><p class='loading'>Loading...</p></div-->
+				<div id="path_viz"></div>
+			</div>
+		</div>
+		
+		<div class="grid_3 omega viz_panel" id="article_list_panel">
+			<div class="panel_name" id="article_list_title">Articles</div>
+			<div class="panel_contents">
+				<ul id="article_list"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

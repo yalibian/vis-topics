@@ -1,0 +1,81 @@
+TODO:
+- update the color scheme (for the overall interface, word cloud, and the sankey visualization) and in general, the entire look/feel
+- redesign panel layout
+
+**BUGS**
+- Some edges aren't easy to click change the minimum width?
+- fix the loading image/screen so that it shows while the visualization is loading -- this is an issue with order of execution. i haven't figured out how to force this order. related: force order in view_all click method.
+
+**INTERACTION**
+- Change data selection menus to be populated from a folder.
+- possible filters: filter topics by size.... edges by similarity. date filtering -- use d3's crossfilter?
+
+**SANKEY VIZ** (POSTPONE until SteamGraph is done)
+***Sana - make all node reflect count size
+- Need the similarity map changed to fit new size/weight options (not necessarily)
+- Decide how to sort on the y-axis. (keep the same for now)
+- Figure out good values for size and color. (done)
+- Highlight the selected node or edge in the visualization
+- Hover on edge or node highlights all paths in and out
+- add a legend (node size with count ranges, link widths with similarity rating)
+- Make the visualization resizable/fit the entire pane it's in (alternatively: set min-width on middle pane -- that is what it does now. is this good enough?)
+- how to set width based on current screen size?
+- have x-axis labels show time range under each bin instead of just start time
+
+**TOPIC COMPARISON**
+- use text style to show high probability vs. low probability words or a better visualization for this data - any cool viz ideas for this?  bar chart, venn diagram?
+- make style match rest of interface
+- show entire list on hover (instead of click)
+
+**TOPIC LIST/TWEET LIST**
+- highight the search words in the topics 
+- Allow multiple words for search? (pass in array of terms, instead of just a term)
+- make @ tags link to twitter
+
+**WORD BAR CHART**
+- if user hovers over the word cloud, highlight the words in the tweets? (lets not bother)
+- make words clickable
+
+**TWEET CARD/TOPIC CARD**
+(none)
+
+
+DONE:
+- Add "splash" screen - on page load, give prompt to select a data set.
+- Display date/time ranges on the x-axis.
+- Removed lag from the interface
+- Label x-axis
+- Removed lag from the interface
+- show the top words for the topic sorted in descending order
+- highlight the top words that have a probability above the mean 
+- list the top tweets in order when a topic is clicked
+- list the top topics in order when a tweet is clicked
+- fixed bug when a user clicks a topic in the visualization that is not being shown in the topic list
+- fix the date/time labeling (the times showing up do not match the tweet times)
+- add x-axis label
+- fixed bug where nodes too close to axis aren't clickable
+- Label x-axis (need to give the overall date ranges if it's only showing hours/minutes)
+- Add context to titles (if filters by topic, say which topic; add which dataset is in use at top; add time range above graph; which topic for word cloud)
+- Controls to undo filters... (maybe just add "View All" links to the headers? this would probably suffice)
+- Hover on node displays topic name. Hover on edge displays two topic names.
+- Make switch data layout a button that brings up the splash again
+- Text comparison hover box.
+- make topic selection scrolling less moving - this was due to animation, I sped it up - better? 
+***Sana - clear the title information when a new dataset is loaded -- in clear method
+***Sana - perhaps add a searchbox for topics? search for word, and show topics where the word is in the list. Order by probability of word in that topic. highlight. 
+***Sana - add visual cue when topic list switches bins (timestamp)
+***Sana - convert word cloud to bar graph
+- clicking topic shouldn't reload topic list when there is stuff in the searchbox (it was appending stuff to the bottom)
+- on topic search, scroll to the top
+- fix words & axis  in bar chart
+***Alison - add count information to tweet list (and topic list if we intend to filter this) -- PUT tweet count in title
+- have divider show time range
+- when searching, should "unselect" any selected topics
+***Alison - Should clicking a tweet even filter the topics? Instead, maybe it should just display the relevant topics in the Tweet info box, and those can be linkable (and then it will be highlighted in topic list & the topic word cloud will be updated)
+- fix width of topic comparison box
+- set viz height to fit the screen
+- clear selected topic and tweet on "view all"
+- fix undefined for debate dataset
+- Format topic comparison box (make it vertical columns instead of horizontal)
+- Clear topic bar chart on new dataset load.
+- Have display message for when empty (instructions?)
