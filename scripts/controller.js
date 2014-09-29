@@ -7,6 +7,7 @@ var top2cat;
 var categories;
 var cat_data;
 
+var  selected_topic_id = -1;
 
 var setter = new Object(); // set the parameter of viz sketch
 var init_mode = "normal";
@@ -50,12 +51,16 @@ function drawViz() {
 function changeMode (topic_mode) {
   //console.log("in changemode");
   //console.log(topic_mode);
+  init_mode = topic_mode;
   textflow.mode(topic_mode);
 }
 
 function presentTags () {
   //console.log("in presenttags controller");
+  // remove all the tags with class tag
+  d3.selectAll(".tag").remove();
   textflow.presentTags();
+
 }
 
 function redraw() {
@@ -256,6 +261,7 @@ function unhighlightViz() {
 
 function highlightTopic(id) {
 
+  console.log("in highligh topics", id);
   unhighlightAllTopics();
 
   // if card is not in topic list, reset topic list and undo search
@@ -309,6 +315,21 @@ function showTopicData(id) {
     }
   }
 
+
+  console.log("to show topic: ", id);
+  console.log("the topic is selected: ", selected_topic_id);
+  if(id == selected_topic_id) {
+    selected_topic_id = -1;
+    console.log("yes, the two things are equal");
+    populateTopics();
+    populateArticles(0);
+    //clearArticleData();
+    //clearTopicData();
+    return;
+  }
+  selected_topic_id = id;
+
+
   // Clear article data
   clearArticleData();
 
@@ -316,15 +337,16 @@ function showTopicData(id) {
   var tmp_topic = new Object();
   // console.log(topics);
   for (id_tmp in topics) {
-    if (id_tmp = id) {
+    if (id_tmp == id) {
       tmp_topic = topics[id_tmp];
       break;
     }
   }
 
-  // console.log(tmp_topic);
+  console.log(tmp_topic);
   showWordsForTopic(tmp_topic);
   // Show the top articles for the topic
+
   showArticlesForTopic(tmp_topic);
 
   // Highlight selected topic & its paths in and out
@@ -649,7 +671,7 @@ function populateVisualization(selected_data) {
 	time1 = timebase+ui.values[0];
 	time2 = timebase+ui.values[1];
 	$( "#period_section" ).text(time1 + " - " + time2);
-	filterViz();
+	//filterViz();
       }
     });
     time1 = timebase+$("#period_section_slider").slider("values", 0);
@@ -716,7 +738,7 @@ function populateCategories(topic_id) {
   // first, rm all the category tree that render last time.
 
   console.log("hello world");
- // d3.select("#path_viz").html("");
+  // d3.select("#path_viz").html("");
 
   populate_top2cat();
   populate_cat_data ();
@@ -731,6 +753,7 @@ function populateCategories(topic_id) {
     .cat_id("")
     .show();
 }
+
 
 function readTop2CatJson (topic2category) {
   top2cat = topic2category;
@@ -780,7 +803,16 @@ $(document).ready(function() {
     //alert("hello");
     //console.log("hello tag_present");
     // present the tags in the flows
-    presentTags();
+    //filterViz();
+    if(init_mode == "normal") {
+      filterViz();
+    } else {
+      presentTags();
+    }
+  });
+
+  $("#button_reset").click(function(){
+    
   });
 
   // Close data selector

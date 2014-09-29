@@ -54,7 +54,7 @@
 		function textflow (svg) {
 			// sketch = svg;
 			svg_textflow = svg;
-			svg.call(zoomListener);
+			//svg.call(zoomListener);
 			var svgGroup = svg.append("g");
 			sketch = svgGroup;
 			section = initSection();
@@ -90,14 +90,14 @@
             if ( timer )
                 clearInterval( timer );
             timer = setInterval( tagCloud, 100 );
-            var cloud = tagCloud();
+                  var cloud = tagCloud();
             //console.log(cloud);
 
-            var tag = svgGroup.selectAll(".tag")
+                  var tag = svgGroup.selectAll(".tag")
                   .data(cloud)
-				  .enter()
-				  .append("text")
-				  .attr("class","tag")
+		  .enter()
+		  .append("text")
+		  .attr("class","tag")
 					.text(function(d) {
 						return d.text;
 					})
@@ -429,6 +429,7 @@
                     // represent the categories of this pointed topic
 		    flow.on("click", function(d, i) {
 		      //console.log(d.topic_id);
+                      showTopicData(d.topic_id);
 		      populateCategories(d.topic_id);
 		    });
 		    break;
@@ -472,23 +473,30 @@
 
 			// remove all the listener...
 
-			//console.log("in removeListener");
+			console.log("in removeListener");
 			var flow = sketch.selectAll(".flow");
 			//console.log(flow)
 
 			// remove click listener--fisheye
 			flow.on("click", null);
 
-			// remove drag listener--order	
+			// remove drag listener--order
 			flow.on("mousedown.drag", null);
+                  flow.on(".force", null);
+                  flow.on(".drag", null);
+                  flow.on(".zoom", null);
 
-			// remove room listener	
-			svg_textflow.on("mousedown.zoom",null)
+			// remove zoom listener  svg_textflow.
+                  //var everything = d3.selectAll("");
+		  sketch.on("mousedown.zoom",null)
 				.on("dblclick.zoom",null)
 				.on("wheel.zoom",null)
 				.on("mousewheel.zoom",null)
 				.on("mousemove.zoom",null)
-				.on("touchstart.zoom",null);	
+				.on("touchstart.zoom",null)
+                  .on("DOMMouseScroll.zoom", null)
+                  .on("touchmove.zoom", null)
+                  .on("touchend.zoom", null);
 			//console.log("out removeListener");
 		}
 		

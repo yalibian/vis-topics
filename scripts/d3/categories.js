@@ -100,8 +100,8 @@
   function showCat () {
 
     var layers = getLayers (top_id, cat_id);
-    console.log(top_id, cat_id);
-    console.log(layers);
+    //console.log(top_id, cat_id);
+    //console.log(layers);
     if (layers.length != 0) {
 
       svg.selectAll(".area")
