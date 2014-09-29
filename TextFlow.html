@@ -23,13 +23,11 @@
 	<script type="text/javascript" src="scripts/Article.js"></script>
 	<script type="text/javascript" src="scripts/Topic.js"></script>
 	<script type="text/javascript" src="scripts/Period.js"></script>
-	
-	<!--  data here"></script-->
+       	
 	<script src="data/Jcdl/cat_data.json"></script>
 	<script src="data/Jcdl/top2cat.json"></script>
 	<script src="data/Jcdl/articles.json"></script>
 	<script src="data/Jcdl/topics.json"></script>
-	<!-- script src ="data/ModernFamily/TopicSimilarity.json"></script-->
 	
 	<script src="data/ModernFamily/Tweet.json"></script>
 	<script src="data/ModernFamily/Bins.json"></script>
@@ -56,12 +54,7 @@
 	<link type="text/css" rel="stylesheet" href="css/jquery.tipsy.css" />
 	<link type="text/css" rel="stylesheet" href="css/chart.css" />
 </head>
-<script>
-//function func()
-//{
-//alert("Hello World!");
-//}
-</script>
+
 <body>
 <!-- LOADING DIV -->
 <div id="loader" class="loader" style="display:none">
@@ -73,38 +66,32 @@
 
 <!-- DATASET SELECTOR DIV -->
 <div class="absolute-div">
-	<div id="selectbox_datasets">	
+	<div id="selectbox_datasets">
 		<div id="title" class="panel_name">Select a dataset... <span id="close_select" class="title_link">Close</span></div>
 		<ul id="popup_data_selector">
 			<li id="jcdl"><a href="#">JCDL Articles</a></li>
-			<!--li id="ModernFamily"><a href="#">Modern Family</a></li-->
-			<!--li id="debate"><a href="#">Debate and Obama</a></li-->
-			<!--li id="chi"><a href="#">CHI Conference</a></li-->
-			<!--li id="sandy"><a href="#">Sandy and NJ</a></li-->
-			
-			<!--<li id="load_new"><a href="#">Load new...</a></li>-->
 		</ul>
 	</div>
 </div>
 
 <!-- ABOUT DIV -->
 <div class="absolute-div">
-	<div id="about-popup" style="display:none;">	
+	<div id="about-popup" style="display:none;">
 		<div id="title" class="panel_name">About TextFlow <span id="close_about" class="title_link">Close</span></div>
 		<div id="about-div" class="panel_contents">
-			TextFlow is a tool that visualizesthe results of automatic topic detection and topic alignmentbetween sets of articles over time. 
+			TextFlow is a tool that visualizesthe results of automatic topic detection.
 			<br />
 			<br />
-			This tool was a team project for the Fall 2012 semester, class CMSC 734 Information Visualization, taught by Prof. Ben Shneiderman for the Department of Computer Science at the University of Maryland
+			This tool was a team project for the PG2014.
 			<br>
 			Team members:
 			<ul>
-				<li> yali Bian</li>
+				<li> bialy (bialy@zju.edu.cn)</li>
 			</ul>
 			More information:
 			<ul>
-				<li> <a href="http://www.heypano.com/topicflow/topicflowv2.mp4" target="_blank">Video Tutorial</a> (mp4)</li>
-				<li> <a href="https://wiki.cs.umd.edu/cmsc734_f12/images/0/05/TopicFlowFinalReport2.pdf" target="_blank">Paper</a> (PDF)</li>
+				<li> <a href="topicflow.mp4" target="_blank">Video Tutorial</a> (mp4)</li>
+				<li> <a href="TopicFlowFinalReport2.pdf" target="_blank">Paper</a> (PDF)</li>
 			</ul>
 		</div>
 	</div>
@@ -142,7 +129,7 @@
 			<div id="filter_holder">
 				<div class="panel_name">
 					<span class="panel_title">CONTROLLER</span>
-					<span id="reset_filters" class="title_link">Reset Filters</span>
+					<!-- span id="reset_filters" class="title_link">Reset Filters</span-->
 				</div>
 
 				<div class="panel_contents">
@@ -150,7 +137,7 @@
 					<div id="topic_size_slider"></div>
 					<label for="keyword_weight">Keyword Weight: </label> <span id="keyword_weight"></span>
 					<div id="keyword_weight_slider"></div>
-					
+                                        
 					<label for="period_section">Period section: </label> <span id="period_section"></span>
 					<div id="period_section_slider"></div>
 					<label for="topic_mode">Mode: </label> <span id="topic_mode"></span>

@@ -10,9 +10,9 @@
 /* Containers
 ----------------------------------------------------------------------------------------------------*/
 .container_12 {
-	width: 92%;
-	margin-left: 4%;
-	margin-right: 4%;
+	width: 96%;
+	margin-left: 3%;
+	margin-right: 1%;
 }
 
 /* Grid >> Global
@@ -33,7 +33,7 @@
 	display:inline;
 	float: left;
 	position: relative;
-	margin-left: 1%;
+	/* margin-left: 1%; */
 	margin-right: 1%;
 }
 
@@ -73,7 +73,8 @@
 }
 
 .container_12 .grid_6 {
-	width:48.0%;
+	/* width:48.0%; */
+	width:50.0%;
 }
 
 .container_12 .grid_7 {
