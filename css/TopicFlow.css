@@ -89,10 +89,12 @@ button:active {
 
 #flow_viz > svg {
 	margin: 0px auto;
+        margin-left: 8px;
 }
 
 #path_viz > svg {
 	margin: 0px auto;
+        margin-left: 8px;
 }
 
 #filter_holder > .panel_contents {

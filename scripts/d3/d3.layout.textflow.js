@@ -104,9 +104,9 @@
 					.attr("text-anchor", "middle")
 					.attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
 					.style("font-size", function(d) { return d.size + "px"; })
-					.on("click", function(d){
-						alert("on--"+d);
-					})
+					//.on("click", function(d){
+						//alert("on--"+d);
+					//})
 					.style("opacity", 1e-6)
 					.transition()
 					.duration(1000)
@@ -393,9 +393,9 @@
 					.attr("text-anchor", "middle")
 					.attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
 					.style("font-size", function(d) { return d.size + "px"; })
-					.on("click", function(d){
-						alert("on--"+d);
-					})
+					//.on("click", function(d){
+					//	alert("on--"+d);
+					//})
 					.style("opacity", 1e-6)
 					.transition()
 					.duration(1000)
@@ -688,9 +688,9 @@
 					.attr("text-anchor", "middle")
 					.attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
 					.style("font-size", function(d) { return d.size + "px"; })
-					.on("click", function(d){
-						alert("on--"+d);
-					})
+					//.on("click", function(d){
+					//	alert("on--"+d);
+					//})
 					.style("opacity", 1e-6)
 					.transition()
 					.duration(1000)

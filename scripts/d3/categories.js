@@ -196,7 +196,7 @@
       //});
       //console.log("hello the showcat has done!");
     } else {
-      alert("no more layer");
+      //alert("no more layer");
     }
   }
 

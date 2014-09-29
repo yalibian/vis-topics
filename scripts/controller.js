@@ -812,7 +812,9 @@ $(document).ready(function() {
   });
 
   $("#button_reset").click(function(){
-    
+    // reset == refreash
+    console.log("will refresh");
+    location.reload();
   });
 
   // Close data selector
