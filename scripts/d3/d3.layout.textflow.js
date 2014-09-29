@@ -5,7 +5,6 @@
         cloudRadians = Math.PI / 180,
         cw = 1 << 11 >> 5,
         ch = 1 << 11;
-    
     var fill = d3.scale.category20b();
 
     if (typeof document !== "undefined") {
@@ -23,8 +22,6 @@
     c.textAlign = "center";
 	ratio = Math.sqrt(c.getImageData(0, 0, 1, 1).data.length >> 2);
 
-	
-	
 	var	size,		// the width and length of sketch
 		topics,		// the array of topic
 		layers,		// every layer of the each topic
@@ -42,7 +39,7 @@
 		padding = cloudPadding,
 		event = d3.dispatch( "word", "end" ),
 		mode = "normal",
-		svg_textflow;	
+		svg_textflow;
 
 	var	xScale,
 		yScale;
@@ -50,9 +47,7 @@
         timeInterval = Infinity,
         event = d3.dispatch("word", "end"),
         timer = null;
-	
     d3.layout.textflow = function () {
-		
 		// set the color
 		color = d3.scale.category10();
 		// visualize the svg sketch
@@ -91,9 +86,7 @@
                       return color(i);
                   })
                   .style("fill-opacity",0.2);
-			
             // draw the tag cloud of each topic in each period
-            
             if ( timer )
                 clearInterval( timer );
             timer = setInterval( tagCloud, 100 );
@@ -106,7 +99,7 @@
 				  .append("text")
 				  .attr("class","tag")
 					.text(function(d) {
-						return d.text; 
+						return d.text;
 					})
 					.attr("text-anchor", "middle")
 					.attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
@@ -118,15 +111,17 @@
 					.transition()
 					.duration(1000)
 					.style("opacity", 1)
-					.style("font-family", function(d) { 
-						return d.font; 
+					.style("font-family", function(d) {
+						return d.font;
 					})
-					.style("fill", function(d) { 
-						return fill(d.text.toLowerCase()); 
+					.style("fill", function(d) {
+						return fill(d.text.toLowerCase());
 					});
+                  changeMode(mode);
         }
-		
-		// set position of each word 
+
+
+		// set position of each word
         function tagCloud() {
 			// console.log("-----------------------------------");
             var flag = true;
@@ -166,16 +161,16 @@
 						var d = new Object();
 						d.word = word;
 						d.wordWeight = words[word];
-							
+
 						d.text = text.call(this, d);
                         d.font = font.call(this, d);
                         d.style = fontStyle.call(this, d);
                         d.weight = fontWeight.call(this, d);
                         d.size = ~~fontSize.call(this, d);
-                        d.padding = cloudPadding.call(this, d)
+                        d.padding = cloudPadding.call(this, d);
 						data.push(d);
 					}
-						
+
 					data.sort( function(a, b) { return b.size - a.size; } );
 					var wordLen = data.length;
 					// console.log(data);
@@ -208,7 +203,7 @@
                         word.y = ~~y(Math.random() + .5);
 
                         tagSprite( word, data, wordCount );
-                            
+
                         if ( word.hasText && place(board, word, bounds, rect) ) {
                             event.word(word);
                             cloud.push(word);
@@ -234,11 +229,11 @@
                 }
                     // event.end(tags, bounds);
             }
-				
+
 			return cloud;
         }
 
-        
+
         function place( board, tag, bounds, rect ) {
 
             var perimeter = [{x: 0, y: 0}, {x: size[0], y: size[1]}],// unused thing ...
@@ -251,7 +246,7 @@
                 dxdy,
                 dx,
                 dy;
-            
+
             while ( dxdy = s(t += dt) ) {
                 dx = ~~dxdy[0];
                 dy = ~~dxdy[1];
@@ -260,13 +255,13 @@
                     break;
                 tag.x = startX + dx;
                 tag.y = startY + dy;
-                
+
                 if (tag.x + tag.x0 < rect.xL || tag.y + tag.y0 < rect.yL || tag.x + tag.x1 > rect.xH || tag.y + tag.y1 > rect.yH){
                     continue;
                 }
 
                 // TODO only check for collisions within current bounds.
-                //  || !bounds 
+                //  || !bounds
                 if (!cloudCollide(tag, board, size[0])) {
                     if ( !bounds || collideRects(tag, bounds) ) {
                          // alert("In place");
@@ -285,22 +280,22 @@
 
 
                         // w = tag.width >> 5;
-                        
+
                         for (var j = 0; j < h; j++) {
 	                        last = 0;
 	                        for (var i = 0; i <= w; i++) {
 
 	                           	var left= ((last << (msx-1))<<1),
 	                            	right = i < w ? ( sprite[j * w + i] >>> sx ) : 0 ;
-	                                
+
 	                            board[x + i] |= ( left | right );
 	                            last = sprite[j * w + i];
 	                        }
 	                        x += sw;
 	                    }
-                        
-                       
-                        
+
+
+
                         // paintSprite (board, size);
                         // alert("board");
                         delete tag.sprite;
@@ -313,7 +308,7 @@
             return false;
 
             function paintSprite (board, size) {
-                
+
                 var w = size[0],
                     h = size[1];
 
@@ -339,22 +334,22 @@
                 c2.fill();
             }
         }
-		
+
 
 		function highLightLayer () {
 			removeTags();
-			updateLayers();	
+			updateLayers();
 		}
-		
+
 
 		function removeTags () {
 			sketch.selectAll(".tag")
 				.remove();
 		}
 
-	
+
 		function updateLayers () {
-			
+
 			var area = d3.svg.area()
 					.x(function(d) {
 						return xScale(d.x); 
@@ -366,7 +361,7 @@
 						return yScale(d.y0 + d.y); 
 					})
 					.interpolate("cardinal");
-			
+
 			var flow = sketch.selectAll(".flow")
     			  .data(layers)
 				  .attr("class","flow")
@@ -376,7 +371,7 @@
                   })
                   .style("fill-opacity",0.2);
 		}
-			
+
 
 		//
 		// we should change all the visual elements splitly to every 
@@ -386,7 +381,7 @@
             timer = setInterval( tagCloud, 100 );
             var cloud = tagCloud();
             console.log(cloud);
-		
+
             var tag =sketch.selectAll("g.tag")
                   .data(cloud)
 				  .enter()
@@ -417,45 +412,50 @@
 			// get the mode, can make sure which mode now and change the svg mode	
 			// there are five mode here, and normal.order. room. merge fisheye...
 			// we should change all the visual elements splitly to every mode
-			
+
 			// remove all the listeners on the svg
-			
+
 			//console.log("in textflow changeMode");
 
-			removeListener();		
-			var flow = sketch.selectAll(".flow");
-			//console.log(mode);
-			switch(mode) {
-				case "normal": 
-					break;
-				case "order":
+			removeListener();
+		  var flow = sketch.selectAll(".flow");
+		  //console.log(mode);
+		  switch(mode) {
+		  case "normal":
+                          /*
+                           mode NORM has the property: category list when clike the layer; and the category list has property bollows:
+                           first: presetn the category tree view second: lick click the pointed layer topic.
+                           */
+                    // represent the categories of this pointed topic
+		    flow.on("click", function(d, i) {
+		      //console.log(d.topic_id);
+		      populateCategories(d.topic_id);
+		    });
+		    break;
+
+		  case "order":
 			//		console.log(" in order ");
-					//add dragListener 
+					//add dragListener
 					flow.call(dragListener);
 					break;
 				case "room":
-					//add the roomListener 
+					//add the roomListener
 					sketch.call(zoomListener);
 					break;
-				case "merge":
-					flow.call(dragListener);
-					break;
-
 				case "fisheye":
 					// to realize
 					// remove all the mode property and add the fisheyeListener to sketch
 					flow.on("click", function(d,i){
 						textflow.fisheye(i);
-						alert("on--"+i);
-                  	});
+					//	alert("on--"+i);
+                  	                });
 					break;
 				case "category":
 					// represent the categories of this pointed topic
-					
 					flow.on("click", function(d, i) {
 						//console.log(d.topic_id);
-						populateCategories(d.topic_id);	
-					})
+						populateCategories(d.topic_id);
+					});
 					break;
 				default:
 					// set as the normal mode
@@ -463,22 +463,22 @@
 
 					break;
 			}
-			
-		}
-		
 
-		
+		}
+
+
+
 		function removeListener() {
-		
+
 			// remove all the listener...
-			
+
 			//console.log("in removeListener");
 			var flow = sketch.selectAll(".flow");
 			//console.log(flow)
-			
+
 			// remove click listener--fisheye
 			flow.on("click", null);
-			
+
 			// remove drag listener--order	
 			flow.on("mousedown.drag", null);
 
@@ -753,27 +753,27 @@
 			}
 			section = x;
 			return textflow;
-		}
-		
+		};
+
 		textflow.topicSize = function(x) {
 			if ( !arguments.length ) {
 				return section;
 			}
 			topicSize = x;
 			return textflow;
-		}
-		
+		};
+
 		textflow.mode = function(x) {
 			if (!arguments.length){
-				return mode;	
+				return mode;
 			}
-			
+
 			//console.log("in textflow mode");
 			//console.log(x);
 			mode = x;
 			changeMode();
 			return textflow;
-		}
+		};
 
 		// presentTags
 		textflow.presentTags = function () {
@@ -782,7 +782,7 @@
 			//console.log("in presenttags textflow");
 			presentTags();
 		};
-		
+
 		// we should update the viz sketch when interaction
 		textflow.updateViz = function() {
 			// console.log("In updateViz");

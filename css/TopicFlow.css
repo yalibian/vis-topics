@@ -574,6 +574,10 @@ img{position:absolute; right:7px; top:5px;}
 	overflow-y: auto;
 	overflow-x: none;
 }
+
+#topic_type_RadioButton
+
+
 fieldset {
 	border: 0px;
 }
