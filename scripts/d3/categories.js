@@ -7,8 +7,8 @@
 	var cat_id = "";
 
 	var m = [2, 2, 3, 2],
-	    w = 800 - m[1] - m[3],
-	    h = 300 - m[0] - m[2];
+	    w = 673 - m[1] - m[3],
+	    h = 276 - m[0] - m[2];
 
 	var x = d3.time.scale()
     	      .range([0, w]);
