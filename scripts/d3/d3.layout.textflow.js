@@ -139,10 +139,10 @@
 					// console.log(layers);
 					//
 				var topic_id = layers[layerCount].topic_id;
-				console.log(layers);
-				console.log(layer);
-				console.log(topics);
-				console.log(topic_id);
+				//console.log(layers);
+				//console.log(layer);
+				//console.log(topics);
+				//console.log(topic_id);
                 var segments = topics[topic_id].periods,
                     segmentLen = layer.length;
 				// console.log("segmentLen: "+segmentLen);
