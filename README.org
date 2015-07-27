@@ -1,0 +1,32 @@
+#+TITLE:       Topic-Visor
+#+AUTHOR:      Yali Bian
+#+EMAIL:       byl.lisp@gmail.com
+#+DATE:        2015-07-27 Mon
+
+
+* Introduction
+
+  It's a visulization server platform:
+    - use standard JSON files to represent topics in files.
+    - serve visulization service for users' own data.
+    - interaction visits visualization.
+
+
+* Demonstration
+
+  Visit demo on [[http://topic-visor.lisp.one][visor.lisp.one/topic]]
+
+* Contact
+
+Yali Bian (byl.lisp@gmail.com)
+
+
+* License (GNU AGPLv3)
+
+Copyright (c) 2015-Now Yali Bian
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see http://www.gnu.org/licenses/.
