@@ -1,0 +1,4 @@
+var vis_id_generator = function () {
+    timestamp = Date.parse(new Date());
+    return timestamp;
+};
