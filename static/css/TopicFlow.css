@@ -42,6 +42,11 @@ a[href^="http"] {
 	float:right;
 }
 
+#data_intro {
+	float:right;
+	margin-top: 10px;
+}
+
 #data_selector {
 	float:right;
 	margin-top: 10px;

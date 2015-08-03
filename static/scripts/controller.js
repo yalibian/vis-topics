@@ -789,6 +789,14 @@ function readCat_data(data) {
  */
 $(document).ready(function () {
     // Select handler for the dataset selector
+
+    $("#data_intro").click(function() {
+        window.open('./intro.html');
+        //$("#dataset-popup").show();
+        //$("#selectbox_datasets").show();
+    });
+
+
     /*
      $("#data_selector").click(function() {
      $("#dataset-popup").show();
