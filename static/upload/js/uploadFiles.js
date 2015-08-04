@@ -75,7 +75,21 @@ function uploadAndSubmit() {
 
 
         // pop-out the embed-iframe
-        $('.embed-iframe').show();
+        // change the contents of the iframe box
+        //console.log(get_ID(timestamp));
+
+        $.getJSON("/get-ip", function (data) {
+
+            //console.log("-------------------");
+            ID =  timestamp + data.ip_address;
+            embed_code = "<iframe src='" + "/serve/" + ID + "' width='100%' height='650' frameboader='0'> </iframe>";
+            link = "/serve/" + ID;
+            download = "/download/" + ID;
+            $('#preview-embed-link').attr("href", link);
+            $('#download-embed-link').attr("href", download);
+            $('#embed_code').text( embed_code);
+            $('.embed-iframe').show();
+        })
 
     }
     else {

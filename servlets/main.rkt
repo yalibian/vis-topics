@@ -13,6 +13,8 @@
 ;(require web-server/)
 
 (require "data.rkt")
+(require "vis_serve.rkt")
+(require "vis_download.rkt")
 
 (provide interface-version
          start
@@ -34,7 +36,12 @@
    [("set-karma") #:method "post" set-karma]
    [("upload") #:method "post" upload]
    [("upload-file") #:method "post" upload-file]
-   [("upload-files") #:method "post" upload-files]))
+   [("upload-files") #:method "post" upload-files]
+   [("get-ip") #:method (or "get" "post") get-ip]
+   ;[("serve") #:method (or "get" "post") vis-serve]
+   ;[("serve" (string-arg)) #:method (or "get" "post") vis-serve]
+   [("serve" (string-arg)) vis-serve]
+   [("download" (string-arg)) #:method (or "get" "post") vis-download]))
 
 ; 每个 http 请求 都会经过这里，static的也一样
 (define (start request)
@@ -48,6 +55,19 @@
                                 TEXT/HTML-MIME-TYPE
                                 empty
                                 (list #"<html><body>Success: SET-RELATION</body></html>"))))
+
+
+(define get-ip (lambda (request)
+                 (println "in get-ip")
+                 (jsexpr->string (hasheq 'ip-address "10.15.62.221"
+                                         'hello "yes you can"))
+                 (response-json (hasheq 'ip_address "10.15.62.221"
+                                        'hello "yes you can"))))
+
+(define response-json (lambda (o)
+                        (response/output (lambda (op)
+                                           (write-json o op))
+                                         #:mime-type #"application/javascript")))
 
 ; update relation.json
 (define (set-relation request)
