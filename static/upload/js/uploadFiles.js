@@ -73,6 +73,10 @@ function uploadAndSubmit() {
             })(files[i]);
         }
 
+
+        // pop-out the embed-iframe
+        $('.embed-iframe').show();
+
     }
     else {
         alert("Please choose a file.");
