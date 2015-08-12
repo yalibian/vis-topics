@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Topic-Visor</title>
+
+    <link type="text/css" rel="stylesheet" href="css/960grid.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery-ui.css"/>
+
+    <link type="text/css" rel="stylesheet" href="css/TopicFlow.css"/>
+    <link type="text/css" rel="stylesheet" href="css/chart.css"/>
+
+    <!--<script type="text/javascript" src="data/Jcdl/categories.js"></script>-->
+
+    <script type="text/javascript" src="data/Jcdl/cat_data.json"></script>
+    <script type="text/javascript" src="data/Jcdl/top2cat.json"></script>
+    <script type="text/javascript" src="data/Jcdl/articles.json"></script>
+    <script type="text/javascript" src="data/Jcdl/topics.json"></script>
+
+    <script type="text/javascript" src="scripts/lib/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="scripts/lib/jquery-ui-1.9.1.custom.min.js"></script>
+
+    <script type="text/javascript" src="scripts/d3/d3.v3.js"></script>
+    <script type="text/javascript" src="scripts/d3/canvas.curve.js"></script>
+    <script type="text/javascript" src="scripts/d3/d3.layout.textflow.js"></script>
+    <script type="text/javascript" src="scripts/d3/chart.js"></script>
+    <script type="text/javascript" src="scripts/d3/categories.js"></script>
+
+    <!-- for topic search -->
+    <script type="text/javascript" src="scripts/external.js"></script>
+
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/Article.js"></script>
+    <script type="text/javascript" src="scripts/Topic.js"></script>
+    <script type="text/javascript" src="scripts/Period.js"></script>
+
+
+</head>
+
+<body>
+
+
+<div class="container_12">
+
+    <div class="header">
+        <span class="grid_8 alpha" id="product_title">
+            <span class="dark">Text</span>
+            <span class="light">Flow</span>
+            <span id="dataset_name"></span>
+        </span>
+
+        <span class="grid_4 omega" id="data_selector_panel">
+            <!--<a href="intro.html" id="data_selector">Introduction</a>-->
+            <button id="data_intro">Introduction</button>
+            <button id="data_selector">Change Dataset</button>
+            <!--<a id="data_selector">Intro</a>-->
+        </span>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="main_panel">
+        <div class="grid_3 alpha viz_panel" id="topic_list_panel">
+            <div id="filter_holder">
+                <div class="panel_name">
+                    <span class="panel_title">CONTROLLER</span>
+                    <!-- span id="reset_filters" class="title_link">Reset Filters</span-->
+                </div>
+
+                <div class="panel_contents">
+                    <label for="topic_size">Topic Size: </label> <span id="topic_size"></span>
+
+                    <div id="topic_size_slider"></div>
+                    <label for="keyword_weight">Keyword Weight: </label> <span id="keyword_weight"></span>
+
+                    <div id="keyword_weight_slider"></div>
+                    <label for="period_section">Period section: </label> <span id="period_section"></span>
+
+                    <div id="period_section_slider"></div>
+
+                    <label for="topic_mode">Mode: </label> <span id="topic_mode"></span>
+                    <fieldset id="topic_type_RadioButton">
+                        <span class="normal mode_option"><input type="radio" name="mode" class="topic_mode"
+                                                                value="normal" checked="yes"/>norm</span>
+                        <span class="order mode_option"><input type="radio" name="mode" class="topic_mode"
+                                                               value="order"/>order</span>
+                        <span class="room mode_option"><input type="radio" name="mode" class="topic_mode" value="room"/>zoom</span>
+                        <span class="fisheye mode_option"><input type="radio" name="mode" class="topic_mode"
+                                                                 value="fisheye"/>lens</span>
+                        <!--span class="category mode_option"><input type="radio" name="mode" class="topic_mode" value="category"/>Category</span-->
+                        <br/>
+                        <button type="button" id="tag_present">Present</button>
+                        <button type="button" id="button_reset">Reset</button>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="topic_holder">
+                <div class="panel_name">
+                    <span class="panel_title" id="topics_title">Topics</span>
+                    <span class="title_link" id="view_all">Deselect Topic</span>
+                </div>
+                <div class="panel_contents">
+                    <center><input type="text" title="Search for word..." id="topic_searchbox"/></center>
+                    <ul id="topic_list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid_6 viz_panel" id="flow_viz_panel">
+            <div class="panel_name"><span class="panel_title">TAG FLOW</span></div>
+            <div class="panel_contents">
+                <div id="flow_viz"></div>
+                <!--div id="graphHolder"><p class='loading'>Loading...</p></div-->
+                <div id="path_viz"></div>
+            </div>
+        </div>
+
+        <div class="grid_3 omega viz_panel" id="article_list_panel">
+            <div class="panel_name" id="article_list_title">Articles</div>
+            <div class="panel_contents">
+                <ul id="article_list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

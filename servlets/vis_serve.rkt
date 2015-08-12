@@ -5,7 +5,7 @@
 
 (define vis-serve (lambda (request id-vis)
                     ;(display request)
-                    (display id-vis)
+;                    (display id-vis)
                     (okay-response)))
 
 

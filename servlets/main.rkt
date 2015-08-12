@@ -14,7 +14,8 @@
 
 (require "data.rkt")
 (require "vis_serve.rkt")
-(require "vis_download.rkt")
+(require "vis_download.rkt"
+         "create_vis_repo.rkt")
 
 (provide interface-version
          start
@@ -32,24 +33,21 @@
 ; Setup request handlers for various URLs
 (define-values (servlet-dispatch servlet-url)
   (dispatch-rules
-   [("set-relation") #:method "post" set-relation]
-   [("set-karma") #:method "post" set-karma]
    [("upload") #:method "post" upload]
    [("upload-file") #:method "post" upload-file]
    [("upload-files") #:method "post" upload-files]
    [("get-ip") #:method (or "get" "post") get-ip]
-   ;[("serve") #:method (or "get" "post") vis-serve]
-   ;[("serve" (string-arg)) #:method (or "get" "post") vis-serve]
    [("serve" (string-arg)) vis-serve]
-   [("download" (string-arg)) #:method (or "get" "post") vis-download]))
+   [("download" (string-arg)) #:method (or "get" "post") vis-download]
+   ))
 
 ; 每个 http 请求 都会经过这里，static的也一样
 (define (start request)
-  ;(println request)
   (servlet-dispatch request))
 
+
 (define upload (lambda (request)
-                 (println "in upload")
+                 ;(println "in upload")
                  (response/full 200 #"OK"
                                 (current-seconds)
                                 TEXT/HTML-MIME-TYPE
@@ -58,68 +56,15 @@
 
 
 (define get-ip (lambda (request)
-                 (println "in get-ip")
-                 (jsexpr->string (hasheq 'ip-address "10.15.62.221"
-                                         'hello "yes you can"))
-                 (response-json (hasheq 'ip_address "10.15.62.221"
-                                        'hello "yes you can"))))
+                 ;(println "in get-ip")
+                  (response-json (hasheq
+                                  'ip_address (request-host-ip request)
+                                  'hello "yes you can"))))
 
 (define response-json (lambda (o)
                         (response/output (lambda (op)
                                            (write-json o op))
                                          #:mime-type #"application/javascript")))
-
-; update relation.json
-(define (set-relation request)
-  (update-relation (bytes->jsexpr (request-post-data/raw request)))
-  (okay-response))
-
-(define upload-files (lambda (request)
-                       (let ([bindings (request-bindings/raw request)])
-                         (let ([file-name (binding:form-value (bindings-assq
-                                                               (string->bytes/utf-8 "file-name")
-                                                               bindings))]
-                               [file-content (request-post-data/raw request)]
-                               [time-stamp (binding:form-value (bindings-assq
-                                                                 (string->bytes/utf-8 "timestamp")
-                                                                 bindings))]
-                               [ip-address (request-host-ip request)])
-                         ;(print request)
-                           ;(println time-stamp)
-                           ;(println ip-address)
-
-                           (save-file (string-append ip-address (bytes->string/utf-8 time-stamp))
-                                      (bytes->string/utf-8 file-name)
-                                      file-content)
-                           ;(println "success get it")
-                           (okay-response)))))
-
-
-(define save-file (lambda (dir file-name file-content)
-                    ;(println dir)
-                    (println file-name)
-                    (println file-content)
-                    ;(println (current-directory))
-
-                    ; make directory "dir" in current-directory + "vis-repo", put the file into this dire
-
-                    (unless (member (string->path dir) (directory-list "vis-repo"))
-                      (make-directory (string-append "vis-repo/" dir)))
-
-                    (display-to-file file-content (string-append "vis-repo/" dir "/" file-name)
-                                   #:mode 'binary
-                                   #:exists 'replace)
-
-                    ;; (display-to-file (bytes->string/utf-8 file-content) (string-append "vis-repo/" dir "/" file-name)
-                    ;;                #:mode 'text
-                    ;;                #:exists 'replace)
-
-
-                    ))
-
- ;                   (with-output-to-file (string-append "vis-repo/" dir "/" file-name) (lambda ()
- ;                                                                                        file-content)
- ;                     #:exists 'replace)
 
 
 
@@ -143,11 +88,11 @@
 
 ; update karma.json
 (define (upload-file request)
-  (display "----------------------")
+  ;(display "----------------------")
   (newline)
  ; (display request)
   (newline)
-  (display (request-post-data/raw request))
+  ;(display (request-post-data/raw request))
   (newline)
   ;; (display
   ;;  (binding:form-value
@@ -159,12 +104,12 @@
                     (bindings-assq (string->bytes/utf-8 "fileName")
                                    (request-bindings/raw request)))]
         [file-content (request-post-data/raw request)])
-    (display "file-name: ")
-    (display file-name)
-    (newline)
-    (display file-content)
-    (newline)
-    (display (current-directory))
+    ;(display "file-name: ")
+    ;(display file-name)
+    ;(newline)
+    ;(display file-content)
+    ;(newline)
+    ;(display (current-directory))
     (with-output-to-file (bytes->string/utf-8 file-name)
       (lambda ()
         file-content)
@@ -172,7 +117,7 @@
   ;(display (request-heads/raw request))
 ;  (display (request-header request))
   ;(update-karma (bytes->jsexpr (request-post-data/raw request)))
-  (newline)
+  ;(newline)
   (response/full 200 #"OK"
                  (current-seconds)
                  TEXT/HTML-MIME-TYPE
@@ -181,26 +126,26 @@
   )
 
 
-; update karma.json
-(define (set-karma request)
-  (display "----------------------")
-  ;(newline)
-  ;(display "set-karma")
-  ;(newline)
-  ;(display (request-post-data/raw request))
-  (update-karma (bytes->jsexpr (request-post-data/raw request)))
-  (newline)
-  (response/full 200 #"OK"
-                 (current-seconds)
-                 TEXT/HTML-MIME-TYPE
-                 empty
-                 (list #"<html><body>Hello, World!</body></html>")))
+;; ; update karma.json
+;; (define (set-karma request)
+;;   (display "----------------------")
+;;   ;(newline)
+;;   ;(display "set-karma")
+;;   ;(newline)
+;;   ;(display (request-post-data/raw request))
+;;   (update-karma (bytes->jsexpr (request-post-data/raw request)))
+;;   (newline)
+;;   (response/full 200 #"OK"
+;;                  (current-seconds)
+;;                  TEXT/HTML-MIME-TYPE
+;;                  empty
+;;                  (list #"<html><body>Hello, World!</body></html>")))
 
-; response a http body of json file
-(define (response/json js-expr)
-  (display 'in-response/json)
-  (response/full 200 #"Okay"
-                 (current-seconds) #"application/json"
-                 empty
-                 (list (jsexpr->string js-expr))))
+;; ; response a http body of json file
+;; (define (response/json js-expr)
+;;   (display 'in-response/json)
+;;   (response/full 200 #"Okay"
+;;                  (current-seconds) #"application/json"
+;;                  empty
+;;                  (list (jsexpr->string js-expr))))
 

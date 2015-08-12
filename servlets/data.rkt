@@ -1,59 +1,32 @@
-#lang racket
+#lang web-server
 
-; 实现功能： 维护 两个　json 文件： relation / karma
-; 对relation karma 从 文件中读取到内存
-; 更新信息到文件中
-;
+(require json)
 
-
-(require json
-         racket/file)
-
-(provide (all-defined-out))
-
-; file-path -> js-expr
-;(define (read-json-from-file file-path)
-;  (string->jsexpr (file->string file-path)))
-
-; write js-expression into a file
-(define (write-json-to-file file-path js-expr)
-  (newline)
-  (display "in write-json-to-file")
-  (newline)
-  (call-with-output-file file-path
-    (lambda (out)
-      (write-json js-expr out))
-    #:exists 'replace))
-
-(define (write-string-to-file file-path str)
-  (call-with-output-file file-path
-    (lambda (out)
-      (write str out))
-    #:exists 'replace
-    #:mode 'text))
+(provide getJSON)
 
 
-;;--------------------------------------------------------------;;
-;; relation
-;;--------------------------------------------------------------;;
+ ;(jsexpr? 'null)
 
-(define relation-path (build-path (current-directory) "static/data/relation.json"))
 
-(define (update-relation js-expr)
-  (write-json-to-file relation-path js-expr))
+; response a http body of json file
+(define (response/json js-expr)
+  (display 'in-response/json)
+  (response/full 200 #"Okay"
+                 (current-seconds) #"application/json"
+                 empty
+                 (list (jsexpr->string js-expr))))
 
 
 
-;;--------------------------------------------------------------;;
-;; karma
-;;--------------------------------------------------------------;;
 
-(define karma-path (build-path (current-directory) "static/data/karma.json"))
+(define JSON (jsexpr->string (hasheq 'ip-address "10.15.62.221"
+                         'hello "yes you can")))
 
-(define (update-karma js-expr)
-  (newline)
-  (display "update karma with js-expr")
-  (newline)
-  (display "js-expr: ")
-  (display js-expr)
-  (write-json-to-file karma-path js-expr))
+(define getJSON (lambda (request file-name)
+                  (println file-name)
+                  (response/full 200 #"OK"
+                                 (current-seconds)
+                                 #"application/json"
+                                 empty
+                                 (list
+                                  (string->bytes/utf-8 JSON)))))
