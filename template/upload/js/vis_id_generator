@@ -1,5 +1,0 @@
-var vis_i
-d_generator = function () {
-    timestamp = Date.parse(new Date());
-    return timestamp;
-};

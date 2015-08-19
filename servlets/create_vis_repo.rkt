@@ -1,5 +1,8 @@
 #lang web-server
 
+(require file/zip)
+
+
 
 (provide upload-files)
 
@@ -45,6 +48,25 @@
                                      #:mode 'binary
                                      #:exists 'replace)
 
+                    (when (file-exists? (string-append "static/download-repo/" dir ".zip"))
+                      (display "exists zip-repo")
+                      (delete-file (string-append "static/download-repo/" dir ".zip")))
+
+                    ;; (when (directory-exists? (string-append "static/download-repo/" dir))
+                    ;;   (display "exists vis-repo")
+                    ;;   (delete-directory (string-append "static/download-repo/" dir "/")))
+
+                    ;; (copy-directory/files
+                    ;;  (string-append "static/vis-repo/" dir )
+                    ;;  (string-append "static/download-repo/" dir))
+
+                    (zip (string-append "static/download-repo/" dir ".zip") (string-append "static/vis-repo/" dir)
+                         #:path-prefix #f
+                         ;#:exists 'replace
+                         )
+
+                    ;(delete-directory/files (string-append "static/download-repo/" dir))
+                    ;(zip (string-append "static/download-repo/" dir ".zip") (string-append dir))
                     ;; (display-to-file (bytes->string/utf-8 file-content) (string-append "vis-repo/" dir "/" file-name)
                     ;;                #:mode 'text
                     ;;                #:exists 'replace)
