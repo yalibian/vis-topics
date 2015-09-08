@@ -32,6 +32,7 @@ function drawViz() {
 
     var margin = {top: 10, right: 1, bottom: 0, left: 10},
         svg_width = 580 - margin.left - margin.right,
+        //svg_width = 600 - margin.left - margin.right,
         svg_height = 480 - margin.top - margin.bottom,
         axis_height = 20,
         axis_title_height = 50;
@@ -105,6 +106,7 @@ function redraw() {
 // draw the path
 function drawVizPath() {
     var margin = {top: 10, right: 1, bottom: 0, left: 10},
+        //svg_width = 620 - margin.left - margin.right,
         svg_width = 580 - margin.left - margin.right,
         svg_height = 280 - margin.top - margin.bottom,
         axis_height = 20,
