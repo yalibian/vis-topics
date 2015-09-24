@@ -1,1 +1,0 @@
-("6.2.1" ("1c9095a3b86a7704d985fd1c4a726ac1bd0acdd0" . "accc455360cad242088d9812863fa9b86261dc94") (collects #"racket" #"runtime-config.rkt") (collects #"json" #"main.rkt") (collects #"web-server" #"lang.rkt") (collects #"web-server" #"lang" #"lang-api.rkt") (collects #"web-server" #"lang" #"reader.rkt"))

@@ -41,7 +41,7 @@ function drawViz() {
     //d3.select("#flow_viz").attr("width");
     //data/ModernFamily/Tweet.json
     textflow = d3.layout.textflow()
-        .size([(width), (svg_height + margin.top + margin.bottom)]);
+        .size([(width + margin.left + margin.right), (svg_height + margin.top + margin.bottom)]);
     //.size([1024, 800])
     //.on("word", progress);
     // put topics into textflow
