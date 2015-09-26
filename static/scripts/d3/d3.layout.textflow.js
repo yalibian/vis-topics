@@ -141,8 +141,6 @@
             var layerLen = layers.length;
             // console.log(layerLen);
             for (var layerCount = 0; layerCount < layerLen; layerCount++) {
-                // console.log("layerCount: " + layerCount);
-
 
                 var layer = layers[layerCount],
                     board = boardSprite(layer, size),   //  set the board...
@@ -150,10 +148,6 @@
                 // console.log(layers);
                 //
                 var topic_id = layers[layerCount].topic_id;
-                //console.log(layers);
-                //console.log(layer);
-                //console.log(topics);
-                //console.log(topic_id);
                 var segments = topics[topic_id].periods,
                     segmentLen = layer.length;
                 // console.log("segmentLen: "+segmentLen);
@@ -186,9 +180,6 @@
                         return b.size - a.size;
                     });
                     var wordLen = data.length;
-                    // console.log(data);
-                    // console.log(layer);
-                    // console.log(segmentCount);
                     var yL = Math.min(layer[segmentCount].y0, layer[segmentCount + 1].y0),
                         yH = Math.max(layer[segmentCount].y0 + layer[segmentCount].y, layer[segmentCount + 1].y0 + layer[segmentCount + 1].y);
 
@@ -291,12 +282,6 @@
                             x = (tag.y + tag.y0) * sw + (lx >> 5),
                             last;
 
-                        // alert("sx: "+sx);
-                        // alert("msx: "+msx);
-
-
-                        // w = tag.width >> 5;
-
                         for (var j = 0; j < h; j++) {
                             last = 0;
                             for (var i = 0; i <= w; i++) {
@@ -310,13 +295,9 @@
                             x += sw;
                         }
 
-
-                        // paintSprite (board, size);
-                        // alert("board");
                         delete tag.sprite;
                         return true;
                     }
-
                 }
             }
 
@@ -387,8 +368,6 @@
                 .style("fill-opacity", 0.2);
         }
 
-
-        //
         // we should change all the visual elements splitly to every
         function presentTags() {
             if (timer)
@@ -412,9 +391,6 @@
                 .style("font-size", function (d) {
                     return d.size + "px";
                 })
-                //.on("click", function(d){
-                //	alert("on--"+d);
-                //})
                 .style("opacity", 1e-6)
                 .transition()
                 .duration(1000)
@@ -428,13 +404,13 @@
         }
 
         function changeMode() {
-            // get the mode, can make sure which mode now and change the svg mode
-            // there are five mode here, and normal.order. room. merge fisheye...
-            // we should change all the visual elements splitly to every mode
+            /* get the mode, can make sure which mode now and change the svg mode
+               there are five mode here, and normal.order. room. merge fisheye...
+               we should change all the visual elements splitly to every mode
 
-            // remove all the listeners on the svg
-
-            //console.log("in textflow changeMode");
+               remove all the listeners on the svg
+               console.log("in textflow changeMode");
+            **/
 
             removeListener();
             var flow = sketch.selectAll(".flow");
@@ -454,8 +430,8 @@
                     break;
 
                 case "order":
-                    //		console.log(" in order ");
-                    //add dragListener
+                    // console.log(" in order ");
+                    // add dragListener
                     flow.call(dragListener);
                     break;
                 case "room":
@@ -723,9 +699,6 @@
                 .style("font-size", function (d) {
                     return d.size + "px";
                 })
-                //.on("click", function(d){
-                //	alert("on--"+d);
-                //})
                 .style("opacity", 1e-6)
                 .transition()
                 .duration(1000)
@@ -738,11 +711,11 @@
                 });
         }
 
-
         textflow.size = function (x) {
             if (!arguments.length)
                 return size;
             size = x;
+            // !!! Q, I change the length of the flow.
             //size[0] = x[0] >> 5 << 5;
             size[0] = x[0];
 
@@ -765,7 +738,7 @@
             }
             color = x;
             return textflow;
-        }
+        };
 
         textflow.keywordWeight = function (x) {
             if (!arguments.length) {
@@ -773,7 +746,7 @@
             }
             keywordWeight = x;
             return textflow;
-        }
+        };
 
         // 将指定layer的height增加（2.5倍），减少其他layer的height-25%
         textflow.fisheye = function (x) {
@@ -783,14 +756,10 @@
             // console.log("In fisheye");
             fisheyeP = x;
             setLayerHeight(x);
-            // setLayerColor(x);
-            //textflow.
-            // console.log()
             highLightLayer();
             textflow.updateViz();
             return textflow;
-        }
-
+        };
 
         textflow.section = function (x) {
             if (!arguments.length) {
@@ -813,8 +782,6 @@
                 return mode;
             }
 
-            //console.log("in textflow mode");
-            //console.log(x);
             mode = x;
             changeMode();
             return textflow;
@@ -822,110 +789,15 @@
 
         // presentTags
         textflow.presentTags = function () {
-            // present tags after some interaction there is no tags.
-            //
-            //console.log("in presenttags textflow");
             presentTags();
         };
 
         // we should update the viz sketch when interaction
         textflow.updateViz = function () {
-            // console.log("In updateViz");
-            // console.log("In updateViz");
-            // update the flow
 
-            // remove all the tags for highlight every layers
             removeTags();
             updateLayers();
-            /*
-             var xScale = d3.scale.linear()
-             .domain([0, layers[0].length - 1])
-             .range([0, size[0]]);
-
-             var yScale = d3.scale.linear()
-             .domain( [ 0, 1 ] )
-             .range([size[1], 0]);
-
-             // draw the outline of each topic
-             var area = d3.svg.area()
-             .x(function(d) { return xScale(d.x); })
-             .y0(function(d) { return yScale(d.y0); })
-             .y1(function(d) { return yScale(d.y0 + d.y); })
-             .interpolate("cardinal");
-
-             // console.log(layers);
-             var flow = sketch.selectAll(".flow")
-             .data(layers);
-             // console.log(flow);
-             // console.log(sketch.selectAll("path"))
-             flow.enter()
-             .append("path")
-             .attr("class","flow")
-             .attr("d", area)
-             .style("fill", function(d,i){
-             if (fisheyeP == i) {
-             return d3.rgb(color(i)).brighter(1);
-             } else {
-             return color(i);
-             }
-             })
-             .style("fill-opacity",0.2)
-             .on("click", function(d,i){
-             fisheye(i);
-             });
-             flow.transition()
-             .attr("d", area)
-             .style("fill", function(d,i){
-             if (fisheyeP == i) {
-             return d3.rgb(color(i)).brighter(1);
-             } else {
-             return color(i);
-             }
-             })
-             .style("fill-opacity",0.2);
-
-             flow.exit()
-             .transition()
-             .duration(500)
-             .remove();
-             // console.log(flow);
-             // console.log(sketch.selectAll("path"))
-             // update the tag cloud
-             //timer = setInterval( tagCloud, 100 );
-             if ( timer )
-             clearInterval( timer );
-             timer = setInterval( tagCloud, 100 );
-
-             var cloud = tagCloud();
-             // console.log(cloud);
-             var tag = sketch.selectAll(".tag")
-             .data(cloud);
-             tag.enter().append("text")
-             .attr("class","tag")
-             .attr("text-anchor", "middle")
-             .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
-             .style("font-size", function(d) { return d.size + "px"; })
-             .on("click", function(d){
-             alert("on--"+d);
-             })
-             .style("opacity", 1e-6)
-             .transition()
-             .duration(1000)
-             .style("opacity", 1);
-
-             tag.transition()
-             .duration(100)
-             .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")"; })
-             .style("font-size", function(d) { return d.size + "px"; });
-
-             tag.exit()
-             .transition()
-             .duration(500)
-             .attr()
-             .remove();
-             return textflow;
-             */
-        }
+        };
 
         d3.rebind(textflow, event, "on");
         return textflow;
