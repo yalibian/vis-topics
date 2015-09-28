@@ -1,12 +1,5 @@
+// the main topic visor controller
 
-console.log("load Json!!!");
-
-var populate_articles_Jcdl;
-var populate_topics_Jcdl;
-var populate_top2cat;
-var populate_cat_data;
-
-// 异步
 
 var articles = new Array();
 var topics = new Array();
@@ -32,7 +25,6 @@ function drawViz() {
 
     var margin = {top: 10, right: 1, bottom: 0, left: 10},
         svg_width = 580 - margin.left - margin.right,
-        //svg_width = 600 - margin.left - margin.right,
         svg_height = 480 - margin.top - margin.bottom,
         axis_height = 20,
         axis_title_height = 50;
@@ -41,7 +33,7 @@ function drawViz() {
     //d3.select("#flow_viz").attr("width");
     //data/ModernFamily/Tweet.json
     textflow = d3.layout.textflow()
-        .size([(width + margin.left + margin.right), (svg_height + margin.top + margin.bottom)]);
+        .size([(width), (svg_height + margin.top + margin.bottom)]);
     //.size([1024, 800])
     //.on("word", progress);
     // put topics into textflow
@@ -106,7 +98,6 @@ function redraw() {
 // draw the path
 function drawVizPath() {
     var margin = {top: 10, right: 1, bottom: 0, left: 10},
-        //svg_width = 620 - margin.left - margin.right,
         svg_width = 580 - margin.left - margin.right,
         svg_height = 280 - margin.top - margin.bottom,
         axis_height = 20,
@@ -618,6 +609,12 @@ function populateVisualization(selected_data) {
     }
     //}
 
+    var start = new Date().getTime();
+    while(true) {
+        if(new Date().getTime()-start > 2000)
+            break;
+    }
+
     console.log("its here");
     selected_data = "jcdl";
     if (selected_data === "jcdl") {
@@ -804,171 +801,137 @@ function readCat_data(data) {
     cat_data = data;
 }
 
-$.getJSON("data/topic.json", function (data) {
+/**
+ * Executes once the DOM is fully loaded
+ */
+$(document).ready(function () {
+    // Select handler for the dataset selector
 
-    console.log(data);
-    populate_topics_Jcdl = function () {
-        readTopicsJSON(data);
-    };
-
-    $.getJSON("data/article.json", function (data) {
-
-        console.log(data);
-
-        populate_articles_Jcdl = function () {
-            readArticlesJSON(data);
-        };
-
-        console.log(populate_articles_Jcdl);
+    $("#data_intro").click(function() {
+        window.open('./intro.html');
+        //$("#dataset-popup").show();
+        //$("#selectbox_datasets").show();
+    });
 
 
-        $.getJSON("data/category.json", function (data) {
+    /*
+     $("#data_selector").click(function() {
+     $("#dataset-popup").show();
+     $("#selectbox_datasets").show();
+     });
 
-            console.log(data);
-            populate_cat_data = function () {
-                readCat_data(data);
-            };
+     $("#popup_data_selector").menu({
+     select: function(event, ui) {
+     var selection = ui.item.context.id;
+     if (selection == "load_new")
+     return;
+     $("#dataset-popup").hide();
+     $("#selectbox_datasets").hide();
+     populateVisualization(selection);
+     }});
+     */
+    $("#dataset-popup").hide();
+    $("#selectbox_datasets").hide();
+    populateVisualization(null);
+    // Select handler for the about box
+    $("#about").click(function () {
+        $("#dataset-popup").show();
+        $("#about-popup").show();
+    });
 
-            console.log("hello world!!!");
-            $.getJSON("data/topic_category.json", function (data) {
+    // Close about box
+    $("#close_about").click(function () {
+        $("#dataset-popup").hide();
+        $("#about-popup").hide();
+    });
 
-                console.log("yes: access!!!");
+    $("#tag_present").click(function () {
+        //alert("hello");
+        //console.log("hello tag_present");
+        // present the tags in the flows
+        //filterViz();
+        if (init_mode == "normal") {
+            filterViz();
+        } else {
+            presentTags();
+        }
+    });
 
-                console.log(data);
-                populate_top2cat = function () {
-                    readTop2CatJson(data);
-                };
-                console.log((new Date()).getMilliseconds());
+    $("#button_reset").click(function () {
+        // reset == refreash
+        console.log("will refresh");
+        location.reload();
+    });
 
-                // on ready
+    // Close data selector
+    $("#close_select").click(function () {
+        $("#dataset-popup").hide();
+        $("#selectbox_datasets").hide();
+    });
 
-                $("#data_intro").click(function () {
-                    window.open('./intro.html');
-                    //$("#dataset-popup").show();
-                    //$("#selectbox_datasets").show();
-                });
+    $("#close_about").show();
+    $("#close_select").show();
 
+    $("#view_all").click(function () {
+        // if there is stuff in the search box, rehighlight (this will take care of unselecting topic too)
+        liveSearch();
+    });
 
-                /*
-                 $("#data_selector").click(function() {
-                 $("#dataset-popup").show();
-                 $("#selectbox_datasets").show();
-                 });
+    $("#reset_filters").click(resetFilters);
+    $('input#topic_searchbox').keyup(liveSearch)
+        .wrap('<span class=\"search_box\"></span>')
+        .after('<img src="images/search_clear.png" alt="" / class=\"search_clear\" style=\"display:none;\">');
 
-                 $("#popup_data_selector").menu({
-                 select: function(event, ui) {
-                 var selection = ui.item.context.id;
-                 if (selection == "load_new")
-                 return;
-                 $("#dataset-popup").hide();
-                 $("#selectbox_datasets").hide();
-                 populateVisualization(selection);
-                 }});
-                 */
-                $("#dataset-popup").hide();
-                $("#selectbox_datasets").hide();
-                populateVisualization(null);
-                // Select handler for the about box
-                $("#about").click(function () {
-                    $("#dataset-popup").show();
-                    $("#about-popup").show();
-                });
+    $('.search_clear').click(function () {
+        $(this).parent().find('input').val('');
+        liveSearch();
+    });
 
-                // Close about box
-                $("#close_about").click(function () {
-                    $("#dataset-popup").hide();
-                    $("#about-popup").hide();
-                });
-
-                $("#tag_present").click(function () {
-                    //alert("hello");
-                    //console.log("hello tag_present");
-                    // present the tags in the flows
-                    //filterViz();
-                    if (init_mode == "normal") {
-                        filterViz();
-                    } else {
-                        presentTags();
-                    }
-                });
-
-                $("#button_reset").click(function () {
-                    // reset == refreash
-                    console.log("will refresh");
-                    location.reload();
-                });
-
-                // Close data selector
-                $("#close_select").click(function () {
-                    $("#dataset-popup").hide();
-                    $("#selectbox_datasets").hide();
-                });
-
-                $("#close_about").show();
-                $("#close_select").show();
-
-                $("#view_all").click(function () {
-                    // if there is stuff in the search box, rehighlight (this will take care of unselecting topic too)
-                    liveSearch();
-                });
-
-                $("#reset_filters").click(resetFilters);
-                $('input#topic_searchbox').keyup(liveSearch)
-                    .wrap('<span class=\"search_box\"></span>')
-                    .after('<img src="images/search_clear.png" alt="" / class=\"search_clear\" style=\"display:none;\">');
-
-                $('.search_clear').click(function () {
-                    $(this).parent().find('input').val('');
-                    liveSearch();
-                });
-
-                // to show/hide "Search for word..." prompt
-                $('input[type=text][title]').each(function (i) {
-                    $(this).addClass('input-prompt-' + i);
-                    var promptSpan = $('<span class="input-prompt"/>');
-                    $(promptSpan).attr('id', 'input-prompt-' + i);
-                    $(promptSpan).append($(this).attr('title'));
-                    $(promptSpan).click(function () {
-                        $(this).hide();
-                        $('.' + $(this).attr('id')).focus();
-                    });
-                    if ($(this).val() != '') {
-                        $(promptSpan).hide();
-                    }
-                    $(this).before(promptSpan);
-                    $(this).focus(function () {
-                        $('#input-prompt-' + i).hide();
-                    });
-                    $(this).blur(function () {
-                        if ($(this).val() == '') {
-                            $('#input-prompt-' + i).show();
-                        }
-                    });
-                });
-
-                $(".topic_mode")
-                    .on("click", function () {
-                        var topic_mode = $(".topic_mode:checked").val();
-                        //console.log(topic_mode);
-                        changeMode(topic_mode);
-                    });
-
-                // Add click handler for article list
-                $("#article_list").delegate(".article_card", "click", function () {
-                    // Show the article data
-                    var id = $(this).attr("id");
-                    showArticleData(id);
-                });
-
-                $("#topic_list").delegate(".topic_card", "click", function () {
-                    var id = $(this).attr("id");
-                    showTopicData(id);
-                });
-
-
-            });
-
+    // to show/hide "Search for word..." prompt
+    $('input[type=text][title]').each(function (i) {
+        $(this).addClass('input-prompt-' + i);
+        var promptSpan = $('<span class="input-prompt"/>');
+        $(promptSpan).attr('id', 'input-prompt-' + i);
+        $(promptSpan).append($(this).attr('title'));
+        $(promptSpan).click(function () {
+            $(this).hide();
+            $('.' + $(this).attr('id')).focus();
+        });
+        if ($(this).val() != '') {
+            $(promptSpan).hide();
+        }
+        $(this).before(promptSpan);
+        $(this).focus(function () {
+            $('#input-prompt-' + i).hide();
+        });
+        $(this).blur(function () {
+            if ($(this).val() == '') {
+                $('#input-prompt-' + i).show();
+            }
         });
     });
 
+    $(".topic_mode")
+        .on("click", function () {
+            var topic_mode = $(".topic_mode:checked").val();
+            //console.log(topic_mode);
+            changeMode(topic_mode);
+        });
+
+    // Add click handler for article list
+    $("#article_list").delegate(".article_card", "click", function () {
+        // Show the article data
+        var id = $(this).attr("id");
+        showArticleData(id);
+    });
+
+    $("#topic_list").delegate(".topic_card", "click", function () {
+        var id = $(this).attr("id");
+        showTopicData(id);
+    });
+
+
 });
+
+
+

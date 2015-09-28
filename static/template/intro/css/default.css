@@ -4,19 +4,34 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 
 */
 
+body {
+    background-image: url(../img/bg.png);
+    background-repeat: repeat-x;
+}
+
+
+#vis-data {
+    background-image: url(../img/bg.png);
+    background-repeat: repeat-x;
+}
+
+#vis-title, #vis-demo {
+    text-align: center;
+}
+
 .hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #f0f0f0;
-  -webkit-text-size-adjust: none;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #f0f0f0;
+    -webkit-text-size-adjust: none;
 }
 
 .hljs,
 .hljs-subst,
 .hljs-tag .hljs-title,
 .nginx .hljs-title {
-  color: black;
+    color: black;
 }
 
 .hljs-string,
@@ -48,7 +63,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .markdown .hljs-header,
 .coffeescript .hljs-attribute,
 .tp .hljs-variable {
-  color: #800;
+    color: #800;
 }
 
 .smartquote,
@@ -58,7 +73,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .hljs-chunk,
 .asciidoc .hljs-blockquote,
 .markdown .hljs-blockquote {
-  color: #888;
+    color: #888;
 }
 
 .hljs-number,
@@ -76,7 +91,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .markdown .hljs-bullet,
 .asciidoc .hljs-link_url,
 .markdown .hljs-link_url {
-  color: #080;
+    color: #080;
 }
 
 .hljs-label,
@@ -107,7 +122,7 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .lasso .hljs-attribute,
 .coffeescript .hljs-property,
 .hljs-phony {
-  color: #88f;
+    color: #88f;
 }
 
 .hljs-keyword,
@@ -130,17 +145,17 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .hljs-status,
 .tp .hljs-data,
 .tp .hljs-io {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .asciidoc .hljs-emphasis,
 .markdown .hljs-emphasis,
 .tp .hljs-units {
-  font-style: italic;
+    font-style: italic;
 }
 
 .nginx .hljs-built_in {
-  font-weight: normal;
+    font-weight: normal;
 }
 
 .coffeescript .javascript,
@@ -151,19 +166,18 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 .xml .vbscript,
 .xml .css,
 .xml .hljs-cdata {
-  opacity: 0.5;
+    opacity: 0.5;
 }
-
 
 .json {
     left: 0;
     position: relative;
-  padding: 0px;
-  margin: 0px 0;
-  border: 0px solid #eee;
-  background-position: left;
-  //border-left-width: 0px;
-  text-align: left;
+    padding: 0px;
+    margin: 0px 0;
+    border: 0px solid #eee;
+    background-position: left;
+/ / border-left-width : 0 px;
+    text-align: left;
 }
 
 
