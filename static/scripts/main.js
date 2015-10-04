@@ -42,6 +42,8 @@ function drawViz() {
     //data/ModernFamily/Tweet.json
     textflow = d3.layout.textflow()
         .size([(width + margin.left + margin.right), (svg_height + margin.top + margin.bottom)]);
+    //textflow.keywordWeight(setter.keywordWeight);
+
     //.size([1024, 800])
     //.on("word", progress);
     // put topics into textflow
@@ -669,10 +671,11 @@ function populateVisualization(selected_data) {
                 //filterViz();
             }
         });
-        $("#topic_size").text($("#topic_size_slider").slider("value"));
+        $("#topic_size")
+            .text($("#topic_size_slider").slider("value"));
         // keyword weight set
         var minSize = 1;
-        var maxSize = 60;
+        var maxSize = 40;
         var size1, size2;
         $("#keyword_weight_slider").slider({
             range: true,
@@ -680,17 +683,20 @@ function populateVisualization(selected_data) {
             max: maxSize,
             values: [minSize, maxSize],
             slide: function (event, ui) {
-                $("#keyword_weight").text(ui.values[0] + " - " + ui.values[1]);
+                $("#keyword_weight")
+                    .text(ui.values[0] + " - " + ui.values[1]);
                 //filterViz();
             },
             change: function (event, ui) {
-                $("#keyword_weight").text(ui.values[0] + " - " + ui.values[1]);
+                $("#keyword_weight")
+                    .text(ui.values[0] + " - " + ui.values[1]);
                 //filterViz();
             }
         });
         var size = $("#keyword_weight_slider").slider("option", "values");
         // console.log(size);
-        $("#keyword_weight").text(size[0] + " - " + size[1]);
+        $("#keyword_weight")
+            .text(size[0] + " - " + size[1]);
         //alert("hello period")
         // periods section
         var timebase = 2008;
@@ -767,8 +773,12 @@ function filterViz() {
 function resetFilters() {
     $("#topic_size_slider").slider("value", max);
     $("input[type=checkbox]:not(:checked)").attr("checked", "yes");
-    $("#keyword_weight_slider").slider("values", [$("#keyword_weight_slider").slider("option", "min"), $("#keyword_weight_slider").slider("option", "max")]);
-    $("#period_section_slider").slider("values", [$("#period_section_slider").slider("option", "min"), $("#period_section_slider").slider("option", "max")]);
+    $("#keyword_weight_slider").slider("values", [$("#keyword_weight_slider")
+        .slider("option", "min"), $("#keyword_weight_slider")
+        .slider("option", "max")]);
+    $("#period_section_slider").slider("values", [$("#period_section_slider")
+        .slider("option", "min"), $("#period_section_slider")
+        .slider("option", "max")]);
     populateTopics();
     $("#reset_filters").hide();
 }
@@ -813,40 +823,34 @@ $.getJSON("data/topic.json", function (data) {
 
     $.getJSON("data/article.json", function (data) {
 
-        console.log(data);
+        //console.log(data);
 
         populate_articles_Jcdl = function () {
             readArticlesJSON(data);
         };
 
-        console.log(populate_articles_Jcdl);
+        //console.log(populate_articles_Jcdl);
 
 
         $.getJSON("data/category.json", function (data) {
 
-            console.log(data);
+            //console.log(data);
             populate_cat_data = function () {
                 readCat_data(data);
             };
 
-            console.log("hello world!!!");
+            //console.log("hello world!!!");
             $.getJSON("data/topic_category.json", function (data) {
 
-                console.log("yes: access!!!");
+                //console.log("yes: access!!!");
 
-                console.log(data);
+                //console.log(data);
                 populate_top2cat = function () {
                     readTop2CatJson(data);
                 };
-                console.log((new Date()).getMilliseconds());
+                //console.log((new Date()).getMilliseconds());
 
                 // on ready
-
-                $("#data_intro").click(function () {
-                    window.open('./intro.html');
-                    //$("#dataset-popup").show();
-                    //$("#selectbox_datasets").show();
-                });
 
 
                 /*
