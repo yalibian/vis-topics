@@ -17,13 +17,13 @@ a:hover {
     color: #666;
 }
 
-a[href^="http"] {
-    padding-right: 14px;
-    background-image: url('../images/external.png');
-    background-position: right !important;
-    background-repeat: no-repeat;
+/*a[href^="http"] {*/
+    /*padding-right: 14px;*/
+    /*background-image: url('../images/external.png');*/
+    /*background-position: right !important;*/
+    /*background-repeat: no-repeat;*/
 
-}
+/*}*/
 
 #product_title {
     margin-top: 10px;
@@ -55,6 +55,50 @@ a[href^="http"] {
 #data_selector {
     float: right;
     margin-top: 10px;
+}
+
+#space {
+    float: right;
+    /*margin-top: 8px;*/
+    /*text-decoration:underline;*/
+    margin-top: 14px;
+    /*font-family: 'Josefin Slab', Helvetica, Arial, sans-serif;*/
+    /*font-size: 1.5em;*/
+    /*color: #000;*/
+    font-variant: small-caps;
+    /*text-transform: uppercase;*/
+    /*font-weight: 200;*/
+    /*color: #0072C6;*/
+}
+
+
+#github {
+    float: right;
+    /*margin-top: 8px;*/
+    text-decoration:underline;
+    margin-top: 14px;
+    font-family: 'Josefin Slab', Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+    /*color: #000;*/
+    font-variant: small-caps;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #0072C6;
+}
+
+
+#intro {
+    float: right;
+    /*margin-top: 8px;*/
+    text-decoration:underline;
+    margin-top: 14px;
+    font-family: 'Josefin Slab', Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+    /*color: #000;*/
+    font-variant: small-caps;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #0072C6;
 }
 
 #about {

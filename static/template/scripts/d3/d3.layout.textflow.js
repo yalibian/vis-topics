@@ -7,6 +7,14 @@
         ch = 1 << 11;
     var fill = d3.scale.category20b();
 
+
+    var blue = d3.scale.category10();
+    //var deepBlue = d3.rgb(31, 119, 180);
+    // #0072C6
+    var deepBlue = d3.rgb(129, 207, 251);
+    // #5DB2FF
+    var lightBlue = d3.rgb(166, 223, 249);
+
     if (typeof document !== "undefined") {
         canvas = document.createElement("canvas");
         canvas.width = 1;
@@ -28,7 +36,7 @@
         color,
         fisheyeP = -1,
         sketch,
-        keywordWeight = [15, 45],
+        keywordWeight = [1, 40],
         topicSize,
         section,
         text = cloudText,
@@ -90,9 +98,15 @@
                 .attr("class", "flow")
                 .attr("d", area)
                 .style("fill", function (d, i) {
-                    return color(i);
+                    //return color(i);
+                    if (i % 2 == 0){
+                        return lightBlue;
+                    }
+                    return deepBlue;
+
                 })
-                .style("fill-opacity", 0.2);
+                .style("fill-opacity", 1.0);
+                //.style("fill-opacity", 0.2);
             // draw the tag cloud of each topic in each period
             if (timer)
                 clearInterval(timer);
@@ -115,9 +129,6 @@
                 .style("font-size", function (d) {
                     return d.size + "px";
                 })
-                //.on("click", function(d){
-                //alert("on--"+d);
-                //})
                 .style("opacity", 1e-6)
                 .transition()
                 .duration(1000)
@@ -126,7 +137,8 @@
                     return d.font;
                 })
                 .style("fill", function (d) {
-                    return fill(d.text.toLowerCase());
+                    return d3.rgb("black");
+                    //return fill(d.text.toLowerCase());
                 });
             changeMode(mode);
         }
@@ -363,9 +375,14 @@
                 .attr("class", "flow")
                 .attr("d", area)
                 .style("fill", function (d, i) {
-                    return color(i);
+                    //return color(i);
+                     if (i % 2 == 0){
+                        return lightBlue;
+                    }
+                    return deepBlue;
                 })
-                .style("fill-opacity", 0.2);
+                .style("fill-opacity", 1.0);
+        //.style("fill-opacity", 0.2);
         }
 
         // we should change all the visual elements splitly to every
@@ -399,18 +416,19 @@
                     return d.font;
                 })
                 .style("fill", function (d) {
-                    return fill(d.text.toLowerCase());
+                    //return fill(d.text.toLowerCase());
+                    return d3.rgb("black");
                 });
         }
 
         function changeMode() {
             /* get the mode, can make sure which mode now and change the svg mode
-               there are five mode here, and normal.order. room. merge fisheye...
-               we should change all the visual elements splitly to every mode
+             there are five mode here, and normal.order. room. merge fisheye...
+             we should change all the visual elements splitly to every mode
 
-               remove all the listeners on the svg
-               console.log("in textflow changeMode");
-            **/
+             remove all the listeners on the svg
+             console.log("in textflow changeMode");
+             **/
 
             removeListener();
             var flow = sketch.selectAll(".flow");
@@ -707,7 +725,8 @@
                     return d.font;
                 })
                 .style("fill", function (d) {
-                    return fill(d.text.toLowerCase());
+                    //return fill(d.text.toLowerCase());
+                    return d3.rgb("black");
                 });
         }
 
