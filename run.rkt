@@ -9,7 +9,7 @@
 ;               #:launch-brower? #t
                #:command-line? #t
                #:stateless? #t
-               #:port 9999
+               #:port 8080
                #:servlet-current-directory (current-directory)
                #:extra-files-paths (list
                                     ;(build-path "~/studio/topic-visor/vis-repo")
