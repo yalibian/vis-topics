@@ -2,6 +2,7 @@
 ## Directory-based project format:
 .idea/
 vis-repo/
+info/
 static/download-repo/
 servlets/compiled/
 *.mov
