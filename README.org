@@ -20,7 +20,13 @@ Vis-Topics is a knowledge based papers interactive visual analytics: a system to
 
   [[./org/vis-topics.png]]
 
-  The visualization system consists of four coordinated overviews: a tag flow view that displays the topics with related keywords and their temporal evolution; a category tree view that recursively presents the categories that topic contains; a topic list view that provide topics with total information and a query; and a article list view that show the meta data of papers. Each of the four views in the visualization system servers a distinct purpose, and they are coordinated through a rich set of user interactions. In addition, This is a component names controller that can regulate all the views and interactive mode.
+  The visualization system consists of four coordinated overviews: 
+  + a tag flow view that displays the topics with related keywords and their temporal evolution; 
+  + a category tree view that recursively presents the categories that topic contains; 
+  + a topic list view that provide topics with total information and a query; 
+  + and a article list view that show the meta data of papers. 
+
+  Each of the four views in the visualization system servers a distinct purpose, and they are coordinated through a rich set of user interactions. In addition, This is a component names controller that can regulate all the views and interactive mode.
 
 
 * Install
