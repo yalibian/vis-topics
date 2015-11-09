@@ -1,25 +1,38 @@
-#+TITLE:       Vis-Topics
+#+TITLE:       Vis-Topics: Visualization of Topics Derived from Collection of Papers
 #+AUTHOR:      Yali Bian
 #+EMAIL:       byl.lisp@gmail.com
 #+DATE:        2015-07-27 Mon
 
 
-* Introduction
+Vis-Topics is a knowledge based papers interactive visual analytics: a system to mine topics from large collection of papers and visualize topics and their content changing over time.
 
-  It's a visulization server platform:
-    - use standard JSON files to represent topics in files.
-    - serve visulization service for users' own data.
-    - interaction visits visualization.
+* Demo
+
+  You can test the visualization system through [[http://www.yalibian.com/vis/topics][this demo]], however the backend functions such as creating new visualization by uploading json files.
+
+  If you want to explore all the functions of this visualization system, you can install, build and use it yourself.
+
+  There is a [[http://www.yalibian.com/data/vis-topics.mov][vedio]], to display the view and all the interactions of this system.
+
+* Usage
+
+  The main view of the system is as follows:
+
+  [[./org/vis-topics.png]]
+
+  The visualization system consists of four coordinated overviews: a tag flow view that displays the topics with related keywords and their temporal evolution; a category tree view that recursively presents the categories that topic contains; a topic list view that provide topics with total information and a query; and a article list view that show the meta data of papers. Each of the four views in the visualization system servers a distinct purpose, and they are coordinated through a rich set of user interactions. In addition, This is a component names controller that can regulate all the views and interactive mode.
 
 
-* Demonstration
+* Install
 
-  Visit demo on [[http://www.lisp.one/vis/topics][www.lisp.one/vis/topics]]
+  If you want to build this system on your own pc, you should:
 
-* Contact
-
-  Yali Bian (byl.lisp@gmail.com)
-
+  + Download [[www.racket-lang.org][DrRacket]] from racket-lang
+  + Install DrRacket
+  + Download this repo
+  + open file "run.rkt" in this repo using GrRacket
+  + Click "Run" on Top Right of GrRacket
+  + Open "http://localhost:8080" in your Browser (Like Chrome, Firfox, or Safari).
 
 * License
 
